@@ -1,8 +1,8 @@
 <?php
 
-$key = "HACK";
+$key = "salom";
 
-// Encryption
+// shifrlash
 function encryptMessage($msg, $key) {
     $cipher = "";
     $k_indx = 0;
@@ -27,10 +27,46 @@ function encryptMessage($msg, $key) {
         $k_indx++;
     }
 
-    return $cipher;
+    $royxat = "";
+    for ($i = 0; $i < strlen($cipher); $i++) {
+        switch ($cipher[$i]) {
+            case '1':
+                $royxat .= 'б';
+                break;
+            case '2':
+                $royxat .= 'и';
+                break;
+            case '3':
+                $royxat .= 'у';
+                break;
+            case '4':
+                $royxat .= 'т';
+                break;
+            case '5':
+                $royxat .= 'в';
+                break;
+            case '6':
+                $royxat .= 'о';
+                break;
+            case '7':
+                $royxat .= 'й';
+                break;
+            case '8':
+                $royxat .= 'с';
+                break;
+            case '9':
+                $royxat .= 'ч';
+                break;
+            default:
+                $royxat .= $cipher[$i];
+                break;
+        }
+    }
+    return $royxat;
 }
 
-// Decryption
+
+// deshifrlash
 function decryptMessage($cipher, $key) {
     $msg = "";
     $k_indx = 0;
@@ -44,19 +80,30 @@ function decryptMessage($cipher, $key) {
 
     $dec_cipher = array_fill(0, $row, array_fill(0, $col, null));
 
-    for ($i = 0; $i < $col; $i++) {
+    // for ($i = 0; $i < $col; $i++) {
+    //     $curr_idx = array_search($key_lst[$k_indx], $key_lst);
+    //     for ($j = 0; $j < $row; $j++) {
+    //         $dec_cipher[$j][$curr_idx] = $msg_lst[$msg_indx];
+    //         $msg_indx++;
+    //     }
+    //     $k_indx++;
+    // }
+    for ($i = 0; $i < $col && $k_indx < count($key_lst); $i++) {
         $curr_idx = array_search($key_lst[$k_indx], $key_lst);
-        for ($j = 0; $j < $row; $j++) {
+    
+        for ($j = 0; $j < $row && $msg_indx < count($msg_lst); $j++) {
             $dec_cipher[$j][$curr_idx] = $msg_lst[$msg_indx];
             $msg_indx++;
         }
+    
         $k_indx++;
     }
+    
 
     try {
         $msg = implode(array_merge(...$dec_cipher));
     } catch (TypeError $e) {
-        throw new Exception("This program cannot handle repeating words.");
+        throw new Exception("Bu dastur ushbu shifrlashni bajara olmaydi.Boshqa matn kiritib ko'ring.");
     }
 
     $null_count = substr_count($msg, '_');
@@ -65,16 +112,52 @@ function decryptMessage($cipher, $key) {
         return substr($msg, 0, -$null_count);
     }
 
-    return $msg;
+    $royxat = "";
+    for ($i = 0; $i < strlen($msg); $i++) {
+        switch (mb_substr($msg, $i, 1)) {
+            case 'б':
+                $royxat .= '1';
+                break;
+            case 'и':
+                $royxat .= '2';
+                break;
+            case 'у':
+                $royxat .= '3';
+                break;
+            case 'т':
+                $royxat .= '4';
+                break;
+            case 'в':
+                $royxat .= '5';
+                break;
+            case 'о':
+                $royxat .= '6';
+                break;
+            case 'й':
+                $royxat .= '7';
+                break;
+            case 'с':
+                $royxat .= '8';
+                break;
+            case 'ч':
+                $royxat .= '9';
+                break;
+            default:
+                $royxat .= mb_substr($msg, $i, 1);
+                break;
+        }
+    }
+    
+    return $royxat;
 }
 
-// Driver Code
-$msg = "Men Qorboboga ishonaman URA Dilmurod !!!";
+
+$msg = "Men Ilhomman salom 1";
 
 $cipher = encryptMessage($msg, $key);
-echo "Encrypted Message: $cipher\n";
+echo "Shifrlangan: $cipher\n";
 
 $decryptedMsg = decryptMessage($cipher, $key);
-echo "Decrypted Message: $decryptedMsg\n";
+echo "De-Shifrlash: $decryptedMsg\n";
 
 ?>
