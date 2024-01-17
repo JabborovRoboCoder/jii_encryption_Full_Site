@@ -11,6 +11,6 @@ Matnni shifrlab va de-Shifrlab beruvchi dastur. Dastur qanday ishlashi haqidagi 
 - Terminaldan chiqqan port ustiga kursorni olib borib bosing.(<i>Brauzer orqali saytga avtomatik kiradi</i>)<br><br><br>
 
 <b>Texnologiya :</b><br>Bootstrap Template ,PHP.<br>
-<b>Sinaldi :</b>Visual Studio Code,XAMPP,FireFox brauzer.<br><br><br>
+<b>Sinaldi :</b><br>Visual Studio Code,XAMPP,FireFox brauzer.<br><br><br>
 
 
